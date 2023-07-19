@@ -30,7 +30,7 @@ class _CharactersPageState extends State<CharactersPage> {
               height: 40,
               child: SearchBar(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                hintText: 'Pesquisar',
+                hintText: 'Pesquisar personagem',
                 onChanged: (value) => _controller.runFilter(value),
               ),
             ),

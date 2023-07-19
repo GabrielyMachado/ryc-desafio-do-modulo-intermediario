@@ -16,19 +16,19 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
           name: 'CharactersStoreBase.hasData'))
       .value;
 
-  late final _$charactersAtom =
-      Atom(name: 'CharactersStoreBase.characters', context: context);
+  late final _$allCharactersAtom =
+      Atom(name: 'CharactersStoreBase.allCharacters', context: context);
 
   @override
-  ObservableList<Character> get characters {
-    _$charactersAtom.reportRead();
-    return super.characters;
+  ObservableList<Character> get allCharacters {
+    _$allCharactersAtom.reportRead();
+    return super.allCharacters;
   }
 
   @override
-  set characters(ObservableList<Character> value) {
-    _$charactersAtom.reportWrite(value, super.characters, () {
-      super.characters = value;
+  set allCharacters(ObservableList<Character> value) {
+    _$allCharactersAtom.reportWrite(value, super.allCharacters, () {
+      super.allCharacters = value;
     });
   }
 
@@ -105,7 +105,7 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
   @override
   String toString() {
     return '''
-characters: ${characters},
+allCharacters: ${allCharacters},
 foundCharacters: ${foundCharacters},
 loading: ${loading},
 hasError: ${hasError},

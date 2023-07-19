@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:marvel_characters/entities/character.dart';
-import 'package:marvel_characters/models/response_character_model.dart';
+import 'package:marvel_characters/models/characters/response_character_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:marvel_characters/network/base_url.dart';
@@ -15,7 +15,7 @@ class CharactersStore = CharactersStoreBase with _$CharactersStore;
 
 abstract class CharactersStoreBase with Store {
   @observable
-  ObservableList<Character> characters = ObservableList<Character>();
+  ObservableList<Character> allCharacters = ObservableList<Character>();
 
   @observable
   ObservableList<Character> foundCharacters = ObservableList<Character>();
@@ -27,7 +27,7 @@ abstract class CharactersStoreBase with Store {
   bool hasError = false;
 
   @computed
-  bool get hasData => !loading && !hasError && characters.isNotEmpty;
+  bool get hasData => !loading && !hasError && allCharacters.isNotEmpty;
 
   @action
   Future<void> getCharacters() async {
@@ -42,7 +42,7 @@ abstract class CharactersStoreBase with Store {
       Map<String, dynamic> data = jsonDecode(response.body);
       for (var character
           in ResponseCharacterModel.fromJson(data).data.results) {
-        characters.add(
+        allCharacters.add(
           Character(
             id: character.id,
             name: character.name,
@@ -52,7 +52,7 @@ abstract class CharactersStoreBase with Store {
           ),
         );
       }
-      foundCharacters = characters;
+      foundCharacters = allCharacters;
     } catch (e) {
       _setError(true);
     }
@@ -63,10 +63,10 @@ abstract class CharactersStoreBase with Store {
   void runFilter(String enteredKeyword) {
     ObservableList<Character> results = ObservableList<Character>();
     if (enteredKeyword.isEmpty) {
-      results = characters;
+      results = allCharacters;
     } else {
       results = ObservableList<Character>.of(
-        characters
+        allCharacters
             .where(
               (user) => user.name.toLowerCase().contains(
                     enteredKeyword.toLowerCase(),
