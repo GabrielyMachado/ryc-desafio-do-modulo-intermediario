@@ -25,14 +25,12 @@ class _CharactersPageState extends State<CharactersPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              height: 40,
-              child: SearchBar(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                hintText: 'Pesquisar personagem',
-                onChanged: (value) => _controller.runFilter(value),
-              ),
+            padding:
+                const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
+            child: SearchBar(
+              surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+              hintText: 'Pesquisar personagem',
+              onChanged: (value) => _controller.runFilter(value),
             ),
           ),
           Observer(
@@ -43,7 +41,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 return const Center(child: Text('Error'));
               } else if (_controller.foundCharacters.isNotEmpty) {
                 return SizedBox(
-                  height: (MediaQuery.of(context).size.height - 200),
+                  height: (MediaQuery.of(context).size.height - 215),
                   child: CharacterGrid(_controller.foundCharacters),
                 );
               } else {

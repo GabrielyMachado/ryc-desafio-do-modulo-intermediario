@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel_characters/entities/character.dart';
+import 'package:marvel_characters/utils/app_routes.dart';
 
 class CharacterCard extends StatelessWidget {
   final Character character;
@@ -28,7 +29,10 @@ class CharacterCard extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // TODO: Criar rota de navegação
+            Navigator.of(context).pushNamed(
+              AppRoutes.characterDetail,
+              arguments: character,
+            );
           },
         ),
       ),
