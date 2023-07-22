@@ -6,6 +6,7 @@ part 'comics_model.g.dart';
 class ComicsModel {
   final int id;
   final String title;
+  @JsonKey(defaultValue: '')
   final String description;
   final Map<String, String> thumbnail;
 

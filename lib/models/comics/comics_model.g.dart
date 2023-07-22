@@ -9,7 +9,7 @@ part of 'comics_model.dart';
 ComicsModel _$ComicsModelFromJson(Map<String, dynamic> json) => ComicsModel(
       id: json['id'] as int,
       title: json['title'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String? ?? '',
       thumbnail: Map<String, String>.from(json['thumbnail'] as Map),
     );
 
