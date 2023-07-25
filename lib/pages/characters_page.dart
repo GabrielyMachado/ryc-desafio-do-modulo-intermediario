@@ -4,7 +4,7 @@ import 'package:marvel_characters/store/characters_store.dart';
 import 'package:marvel_characters/widgets/character_grid.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
 
-import '../widgets/characters_error.dart';
+import '../widgets/request_error.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -29,7 +29,8 @@ class _CharactersPageState extends State<CharactersPage> {
           if (_controller.loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (_controller.hasError) {
-            return CharacterError(_controller);
+            return RequestError(
+                () => _controller.getCharacters(), 'characters');
           } else if (_controller.foundCharacters.isNotEmpty) {
             return Column(
               children: [

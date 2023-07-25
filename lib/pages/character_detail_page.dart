@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marvel_characters/entities/character.dart';
 import 'package:marvel_characters/store/character_detail_store.dart';
 import 'package:marvel_characters/widgets/comics_card.dart';
+import 'package:marvel_characters/widgets/request_error.dart';
 
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({super.key});
@@ -29,7 +30,10 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
           if (_controller.loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (_controller.hasError) {
-            return const Center(child: Text('Error'));
+            return RequestError(
+              () => _controller.getCharacterComics(character.id),
+              'detail',
+            );
           } else {
             return CustomScrollView(
               slivers: [

@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 part 'characters_store.g.dart';
 
-final url = BaseUrl.getUrl("/v1/public/character");
+final url = BaseUrl.getUrl("/v1/public/characters");
 
 class CharactersStore = CharactersStoreBase with _$CharactersStore;
 
