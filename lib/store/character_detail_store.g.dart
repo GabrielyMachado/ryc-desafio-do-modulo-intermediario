@@ -20,13 +20,13 @@ mixin _$CharacterDetailStore on CharacterDetailStoreBase, Store {
       name: 'CharacterDetailStoreBase.allCharacterComics', context: context);
 
   @override
-  ObservableList<Comics> get allCharacterComics {
+  ObservableList<Comic> get allCharacterComics {
     _$allCharacterComicsAtom.reportRead();
     return super.allCharacterComics;
   }
 
   @override
-  set allCharacterComics(ObservableList<Comics> value) {
+  set allCharacterComics(ObservableList<Comic> value) {
     _$allCharacterComicsAtom.reportWrite(value, super.allCharacterComics, () {
       super.allCharacterComics = value;
     });

@@ -6,8 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:marvel_characters/network/base_url.dart';
 import 'package:http/http.dart' as http;
 
-import '../entities/comics.dart';
-
+import '../entities/comic.dart';
 part 'character_detail_store.g.dart';
 
 class CharacterDetailStore = CharacterDetailStoreBase
@@ -15,7 +14,7 @@ class CharacterDetailStore = CharacterDetailStoreBase
 
 abstract class CharacterDetailStoreBase with Store {
   @observable
-  ObservableList<Comics> allCharacterComics = ObservableList<Comics>();
+  ObservableList<Comic> allCharacterComics = ObservableList<Comic>();
 
   @observable
   bool loading = false;
@@ -41,7 +40,7 @@ abstract class CharacterDetailStoreBase with Store {
       Map<String, dynamic> data = jsonDecode(response.body);
       for (var comic in ResponseComicsModel.fromJson(data).data.results) {
         allCharacterComics.add(
-          Comics(
+          Comic(
             id: comic.id,
             title: comic.title,
             description: comic.description,

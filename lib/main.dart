@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marvel_characters/pages/character_detail_page.dart';
 import 'package:marvel_characters/pages/characters_page.dart';
+import 'package:marvel_characters/pages/characters_error_page.dart';
 import 'package:marvel_characters/utils/app_routes.dart';
 
 void main() {
@@ -13,10 +14,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Marvel Personagens',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 238, 23, 31)),
+          seedColor: const Color.fromARGB(255, 238, 23, 31),
+          primary: const Color.fromARGB(255, 238, 23, 31),
+        ),
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Color.fromARGB(255, 238, 23, 31),
+          ),
+        ),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(color: Colors.white),
+          bodyLarge: TextStyle(fontSize: 16),
+        ),
         useMaterial3: true,
       ),
       routes: {

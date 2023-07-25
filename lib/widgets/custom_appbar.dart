@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        padding: const EdgeInsets.only(bottom: 10),
         height: preferredSize.height,
         alignment: Alignment.center,
         color: Colors.black,

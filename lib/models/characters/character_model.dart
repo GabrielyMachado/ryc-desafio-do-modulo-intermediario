@@ -8,12 +8,14 @@ class CharacterModel {
   final String name;
   final String description;
   final Map<String, String> thumbnail;
+  final Map<String, dynamic> comics;
 
   CharacterModel({
     required this.id,
     required this.name,
     required this.description,
     required this.thumbnail,
+    required this.comics,
   });
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) =>

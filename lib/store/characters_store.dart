@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 part 'characters_store.g.dart';
 
-final url = BaseUrl.getUrl("/v1/public/characters");
+final url = BaseUrl.getUrl("/v1/public/character");
 
 class CharactersStore = CharactersStoreBase with _$CharactersStore;
 
@@ -45,6 +45,7 @@ abstract class CharactersStoreBase with Store {
         allCharacters.add(
           Character(
             id: character.id,
+            totalAvailableComics: character.comics['available'],
             name: character.name,
             description: character.description,
             thumbnail:

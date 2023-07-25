@@ -4,6 +4,8 @@ import 'package:marvel_characters/store/characters_store.dart';
 import 'package:marvel_characters/widgets/character_grid.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
 
+import 'characters_error_page.dart';
+
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
 
@@ -19,38 +21,83 @@ class _CharactersPageState extends State<CharactersPage> {
     if (!_controller.hasData) {
       _controller.getCharacters();
     }
+
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: const CustomAppBar(),
-      body: Column(
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
-            child: SearchBar(
-              surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
-              hintText: 'Pesquisar personagem',
-              onChanged: (value) => _controller.runFilter(value),
-            ),
-          ),
-          Observer(
-            builder: (_) {
-              if (_controller.loading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (_controller.hasError) {
-                return const Center(child: Text('Error'));
-              } else if (_controller.foundCharacters.isNotEmpty) {
-                return SizedBox(
-                  height: (MediaQuery.of(context).size.height - 215),
+      body: Observer(
+        builder: (_) {
+          if (_controller.loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (_controller.hasError) {
+            return const CharacterErrorPage();
+            // return Center(
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       SizedBox(
+            //         height: 250,
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.end,
+            //           children: [
+            //             const Text(
+            //               'Oops!',
+            //               style: TextStyle(
+            //                 fontSize: 26,
+            //                 fontWeight: FontWeight.bold,
+            //               ),
+            //             ),
+            //             const SizedBox(height: 5),
+            //             const Text(
+            //               'Ocorreu um erro ao carregar os personagens.',
+            //               style: TextStyle(fontSize: 16),
+            //             ),
+            //             const SizedBox(height: 35),
+            //             ElevatedButton(
+            //               style: ButtonStyle(
+            //                   textStyle: MaterialStateProperty.all<TextStyle>(
+            //                     const TextStyle(
+            //                         fontSize: 20, fontWeight: FontWeight.bold),
+            //                   ),
+            //                   foregroundColor: MaterialStateProperty.all<Color>(
+            //                       Colors.white),
+            //                   backgroundColor: MaterialStateProperty.all<Color>(
+            //                       Theme.of(context).colorScheme.primary)),
+            //               onPressed: () => _controller.getCharacters(),
+            //               child: const Text('Tentar novamente'),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //       Image.asset(
+            //         'assets/images/error_spiderman.png',
+            //         height: 250,
+            //       )
+            //     ],
+            //   ),
+            // );
+          } else if (_controller.foundCharacters.isNotEmpty) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SearchBar(
+                    surfaceTintColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    hintText: 'Pesquisar personagem',
+                    onChanged: (value) => _controller.runFilter(value),
+                  ),
+                ),
+                Expanded(
                   child: CharacterGrid(_controller.foundCharacters),
-                );
-              } else {
-                return const Center(
-                    child: Text('Nenhum personagem encontrado'));
-              }
-            },
-          ),
-        ],
+                ),
+              ],
+            );
+          } else {
+            return const Center(
+              child: Text('Nenhum personagem encontrado'),
+            );
+          }
+        },
       ),
     );
   }
