@@ -4,7 +4,7 @@ import 'package:marvel_characters/store/characters_store.dart';
 import 'package:marvel_characters/widgets/character_grid.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
 
-import 'characters_error_page.dart';
+import '../widgets/characters_error.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -29,52 +29,7 @@ class _CharactersPageState extends State<CharactersPage> {
           if (_controller.loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (_controller.hasError) {
-            return const CharacterErrorPage();
-            // return Center(
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       SizedBox(
-            //         height: 250,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             const Text(
-            //               'Oops!',
-            //               style: TextStyle(
-            //                 fontSize: 26,
-            //                 fontWeight: FontWeight.bold,
-            //               ),
-            //             ),
-            //             const SizedBox(height: 5),
-            //             const Text(
-            //               'Ocorreu um erro ao carregar os personagens.',
-            //               style: TextStyle(fontSize: 16),
-            //             ),
-            //             const SizedBox(height: 35),
-            //             ElevatedButton(
-            //               style: ButtonStyle(
-            //                   textStyle: MaterialStateProperty.all<TextStyle>(
-            //                     const TextStyle(
-            //                         fontSize: 20, fontWeight: FontWeight.bold),
-            //                   ),
-            //                   foregroundColor: MaterialStateProperty.all<Color>(
-            //                       Colors.white),
-            //                   backgroundColor: MaterialStateProperty.all<Color>(
-            //                       Theme.of(context).colorScheme.primary)),
-            //               onPressed: () => _controller.getCharacters(),
-            //               child: const Text('Tentar novamente'),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //       Image.asset(
-            //         'assets/images/error_spiderman.png',
-            //         height: 250,
-            //       )
-            //     ],
-            //   ),
-            // );
+            return CharacterError(_controller);
           } else if (_controller.foundCharacters.isNotEmpty) {
             return Column(
               children: [

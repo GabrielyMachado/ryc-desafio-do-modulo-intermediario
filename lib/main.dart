@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel_characters/pages/character_detail_page.dart';
 import 'package:marvel_characters/pages/characters_page.dart';
-import 'package:marvel_characters/pages/characters_error_page.dart';
 import 'package:marvel_characters/utils/app_routes.dart';
 
 void main() {
