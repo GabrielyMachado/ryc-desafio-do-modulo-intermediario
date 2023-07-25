@@ -25,9 +25,12 @@ class MyApp extends StatelessWidget {
             color: Color.fromARGB(255, 238, 23, 31),
           ),
         ),
+        fontFamily: 'Roboto Condensed',
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white),
-          bodyLarge: TextStyle(fontSize: 16),
+          bodyMedium: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
         ),
         useMaterial3: true,
       ),

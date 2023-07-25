@@ -16,8 +16,14 @@ class CharacterCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(7),
       child: GridTile(
         footer: GridTileBar(
-          backgroundColor: const Color.fromARGB(255, 238, 23, 31),
-          title: Text(character.name),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          title: Text(
+            character.name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
         ),
         child: GestureDetector(
           child: Hero(
