@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marvel_characters/store/characters_store.dart';
 import 'package:marvel_characters/widgets/character_grid.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
+import 'package:marvel_characters/widgets/custom_searchbar.dart';
 
 import '../widgets/request_error.dart';
 
@@ -34,23 +35,22 @@ class _CharactersPageState extends State<CharactersPage> {
           } else if (_controller.foundCharacters.isNotEmpty) {
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: SearchBar(
-                    surfaceTintColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    hintText: 'Pesquisar personagem',
-                    onChanged: (value) => _controller.runFilter(value),
-                  ),
-                ),
+                CustomSearchbar(_controller),
                 Expanded(
                   child: CharacterGrid(_controller.foundCharacters),
                 ),
               ],
             );
           } else {
-            return const Center(
-              child: Text('Nenhum personagem encontrado'),
+            return Column(
+              children: [
+                CustomSearchbar(_controller),
+                const Expanded(
+                  child: Center(
+                    child: Text('Nenhum personagem encontrado'),
+                  ),
+                ),
+              ],
             );
           }
         },

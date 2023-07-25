@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marvel_characters/entities/character.dart';
 import 'package:marvel_characters/store/character_detail_store.dart';
 import 'package:marvel_characters/widgets/comics_card.dart';
+import 'package:marvel_characters/widgets/custom_appbar.dart';
 import 'package:marvel_characters/widgets/request_error.dart';
 
 class CharacterDetailPage extends StatefulWidget {
@@ -28,18 +29,23 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
       body: Observer(
         builder: (_) {
           if (_controller.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (_controller.hasError) {
-            return RequestError(
-              () => _controller.getCharacterComics(character.id),
-              'detail',
+            return Scaffold(
+              appBar: const CustomAppBar(),
+              body: RequestError(
+                () => _controller.getCharacterComics(character.id),
+                'detail',
+              ),
             );
           } else {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
                   backgroundColor: Colors.black,
-                  expandedHeight: 300,
+                  expandedHeight: 299,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     title: Text(character.name),
@@ -60,7 +66,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                               end: Alignment(0, 0),
                               colors: [
                                 Color.fromRGBO(0, 0, 0, 0.9),
-                                Color.fromRGBO(0, 0, 0, 0),
+                                Color.fromRGBO(0, 0, 0, 0.0),
                               ],
                             ),
                           ),
@@ -84,6 +90,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                     child: Text(
                                       character.description,
                                       textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 16),
                                     ),
                                   )
                                 : Container(),
