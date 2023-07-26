@@ -119,6 +119,25 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                           ),
                                         ),
                                       ),
+                                      _controller.hasMoreData
+                                          ? TextButton(
+                                              onPressed: () {
+                                                _controller
+                                                    .showMoreCharacterComics(
+                                                        character.id);
+                                              },
+                                              child: Center(
+                                                child: _controller.loadingMore
+                                                    ? const CircularProgressIndicator()
+                                                    : const Text(
+                                                        'Mostrar mais',
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                              ),
+                                            )
+                                          : Container(),
                                     ],
                                   )
                                 : const Center(

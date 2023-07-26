@@ -43,7 +43,7 @@ class _CharactersPageState extends State<CharactersPage> {
                     _controller.hasMoreData
                         ? TextButton(
                             onPressed: () {
-                              _controller.showMoreCharacter();
+                              _controller.showMoreCharacters();
                             },
                             child: _controller.loadingMore
                                 ? const CircularProgressIndicator()
@@ -52,7 +52,8 @@ class _CharactersPageState extends State<CharactersPage> {
                                     style: TextStyle(
                                       fontSize: 20,
                                     ),
-                                  ))
+                                  ),
+                          )
                         : Container(),
                   ],
                 ),

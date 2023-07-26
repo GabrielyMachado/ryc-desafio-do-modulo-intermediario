@@ -143,12 +143,13 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
     return _$getCharactersAsyncAction.run(() => super.getCharacters());
   }
 
-  late final _$showMoreCharacterAsyncAction =
-      AsyncAction('CharactersStoreBase.showMoreCharacter', context: context);
+  late final _$showMoreCharactersAsyncAction =
+      AsyncAction('CharactersStoreBase.showMoreCharacters', context: context);
 
   @override
-  Future<void> showMoreCharacter() {
-    return _$showMoreCharacterAsyncAction.run(() => super.showMoreCharacter());
+  Future<void> showMoreCharacters() {
+    return _$showMoreCharactersAsyncAction
+        .run(() => super.showMoreCharacters());
   }
 
   late final _$CharactersStoreBaseActionController =

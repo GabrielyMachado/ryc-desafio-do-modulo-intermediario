@@ -9,6 +9,13 @@ part of 'character_detail_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$CharacterDetailStore on CharacterDetailStoreBase, Store {
+  Computed<bool>? _$hasMoreDataComputed;
+
+  @override
+  bool get hasMoreData =>
+      (_$hasMoreDataComputed ??= Computed<bool>(() => super.hasMoreData,
+              name: 'CharacterDetailStoreBase.hasMoreData'))
+          .value;
   Computed<bool>? _$hasDataComputed;
 
   @override
@@ -48,6 +55,54 @@ mixin _$CharacterDetailStore on CharacterDetailStoreBase, Store {
     });
   }
 
+  late final _$loadingMoreAtom =
+      Atom(name: 'CharacterDetailStoreBase.loadingMore', context: context);
+
+  @override
+  bool get loadingMore {
+    _$loadingMoreAtom.reportRead();
+    return super.loadingMore;
+  }
+
+  @override
+  set loadingMore(bool value) {
+    _$loadingMoreAtom.reportWrite(value, super.loadingMore, () {
+      super.loadingMore = value;
+    });
+  }
+
+  late final _$offsetAtom =
+      Atom(name: 'CharacterDetailStoreBase.offset', context: context);
+
+  @override
+  int get offset {
+    _$offsetAtom.reportRead();
+    return super.offset;
+  }
+
+  @override
+  set offset(int value) {
+    _$offsetAtom.reportWrite(value, super.offset, () {
+      super.offset = value;
+    });
+  }
+
+  late final _$totalDataAtom =
+      Atom(name: 'CharacterDetailStoreBase.totalData', context: context);
+
+  @override
+  int get totalData {
+    _$totalDataAtom.reportRead();
+    return super.totalData;
+  }
+
+  @override
+  set totalData(int value) {
+    _$totalDataAtom.reportWrite(value, super.totalData, () {
+      super.totalData = value;
+    });
+  }
+
   late final _$hasErrorAtom =
       Atom(name: 'CharacterDetailStoreBase.hasError', context: context);
 
@@ -74,12 +129,26 @@ mixin _$CharacterDetailStore on CharacterDetailStoreBase, Store {
         .run(() => super.getCharacterComics(characterId));
   }
 
+  late final _$showMoreCharacterComicsAsyncAction = AsyncAction(
+      'CharacterDetailStoreBase.showMoreCharacterComics',
+      context: context);
+
+  @override
+  Future<void> showMoreCharacterComics(dynamic characterId) {
+    return _$showMoreCharacterComicsAsyncAction
+        .run(() => super.showMoreCharacterComics(characterId));
+  }
+
   @override
   String toString() {
     return '''
 allCharacterComics: ${allCharacterComics},
 loading: ${loading},
+loadingMore: ${loadingMore},
+offset: ${offset},
+totalData: ${totalData},
 hasError: ${hasError},
+hasMoreData: ${hasMoreData},
 hasData: ${hasData}
     ''';
   }

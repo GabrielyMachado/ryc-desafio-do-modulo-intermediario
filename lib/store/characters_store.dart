@@ -95,7 +95,7 @@ abstract class CharactersStoreBase with Store {
   }
 
   @action
-  Future<void> showMoreCharacter() async {
+  Future<void> showMoreCharacters() async {
     _setLoadingMore(true);
     _setError(false);
 
