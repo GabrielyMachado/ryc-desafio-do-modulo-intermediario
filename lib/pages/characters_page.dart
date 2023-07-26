@@ -33,13 +33,25 @@ class _CharactersPageState extends State<CharactersPage> {
             return RequestError(
                 () => _controller.getCharacters(), 'characters');
           } else if (_controller.foundCharacters.isNotEmpty) {
-            return Column(
-              children: [
-                CustomSearchbar(_controller),
-                Expanded(
-                  child: CharacterGrid(_controller.foundCharacters),
+            return Scrollbar(
+              thickness: 3,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    CustomSearchbar(_controller),
+                    CharacterGrid(_controller.foundCharacters),
+                    _controller.hasMoreData
+                        ? TextButton(
+                            onPressed: () {
+                              _controller.showMoreCharacter();
+                            },
+                            child: const Text('Mostrar mais'),
+                          )
+                        : Container(),
+                  ],
                 ),
-              ],
+              ),
             );
           } else {
             return Column(

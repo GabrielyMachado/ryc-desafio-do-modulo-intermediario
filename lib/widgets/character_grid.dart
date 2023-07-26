@@ -12,6 +12,8 @@ class CharacterGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: const EdgeInsets.all(10),
+      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
       itemCount: characters.length,
       itemBuilder: (ctx, i) => CharacterCard(character: characters[i]),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

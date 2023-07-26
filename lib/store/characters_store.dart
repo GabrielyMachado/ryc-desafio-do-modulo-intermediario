@@ -26,6 +26,15 @@ abstract class CharactersStoreBase with Store {
   @observable
   bool hasError = false;
 
+  @observable
+  int offset = 100;
+
+  @observable
+  int totalData = 0;
+
+  @computed
+  bool get hasMoreData => totalData > allCharacters.length;
+
   @computed
   bool get hasData => !loading && !hasError && allCharacters.isNotEmpty;
 
@@ -40,6 +49,9 @@ abstract class CharactersStoreBase with Store {
       );
 
       Map<String, dynamic> data = jsonDecode(response.body);
+
+      _setTotalData(ResponseCharacterModel.fromJson(data).data.total);
+
       for (var character
           in ResponseCharacterModel.fromJson(data).data.results) {
         allCharacters.add(
@@ -79,11 +91,55 @@ abstract class CharactersStoreBase with Store {
     foundCharacters = results;
   }
 
+  @action
+  Future<void> showMoreCharacter() async {
+    _setLoading(true);
+    _setError(false);
+
+    try {
+      final response = await http.get(
+        Uri.parse('$url&offset=$offset'),
+      );
+
+      Map<String, dynamic> data = jsonDecode(response.body);
+
+      final results = ResponseCharacterModel.fromJson(data).data.results;
+
+      if (results.isNotEmpty) {
+        for (var character in results) {
+          allCharacters.add(
+            Character(
+              id: character.id,
+              totalAvailableComics: character.comics['available'],
+              name: character.name,
+              description: character.description,
+              thumbnail:
+                  '${character.thumbnail['path']}.${character.thumbnail['extension']}',
+            ),
+          );
+        }
+        foundCharacters = allCharacters;
+        _incrementOffset();
+      }
+    } catch (e) {
+      _setError(true);
+    }
+    _setLoading(false);
+  }
+
   void _setLoading(bool value) {
     loading = value;
   }
 
   void _setError(bool value) {
     hasError = value;
+  }
+
+  void _setTotalData(int value) {
+    totalData = value;
+  }
+
+  void _incrementOffset() {
+    offset += 100;
   }
 }
