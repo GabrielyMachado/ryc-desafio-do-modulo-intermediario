@@ -24,6 +24,9 @@ abstract class CharactersStoreBase with Store {
   bool loading = false;
 
   @observable
+  bool loadingMore = false;
+
+  @observable
   bool hasError = false;
 
   @observable
@@ -93,7 +96,7 @@ abstract class CharactersStoreBase with Store {
 
   @action
   Future<void> showMoreCharacter() async {
-    _setLoading(true);
+    _setLoadingMore(true);
     _setError(false);
 
     try {
@@ -124,11 +127,15 @@ abstract class CharactersStoreBase with Store {
     } catch (e) {
       _setError(true);
     }
-    _setLoading(false);
+    _setLoadingMore(false);
   }
 
   void _setLoading(bool value) {
     loading = value;
+  }
+
+  void _setLoadingMore(bool value) {
+    loadingMore = value;
   }
 
   void _setError(bool value) {

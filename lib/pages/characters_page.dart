@@ -30,8 +30,7 @@ class _CharactersPageState extends State<CharactersPage> {
           if (_controller.loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (_controller.hasError) {
-            return RequestError(
-                () => _controller.getCharacters(), 'characters');
+            return RequestError(_controller.getCharacters, 'characters');
           } else if (_controller.foundCharacters.isNotEmpty) {
             return Scrollbar(
               thickness: 3,
@@ -46,8 +45,14 @@ class _CharactersPageState extends State<CharactersPage> {
                             onPressed: () {
                               _controller.showMoreCharacter();
                             },
-                            child: const Text('Mostrar mais'),
-                          )
+                            child: _controller.loadingMore
+                                ? const CircularProgressIndicator()
+                                : const Text(
+                                    'Mostrar mais',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ))
                         : Container(),
                   ],
                 ),

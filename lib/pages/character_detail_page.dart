@@ -90,7 +90,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                     child: Text(
                                       character.description,
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   )
                                 : Container(),

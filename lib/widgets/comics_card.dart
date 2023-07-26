@@ -26,10 +26,12 @@ class ComicCard extends StatelessWidget {
                 height: 140,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    comic.thumbnail,
+                  child: FadeInImage(
+                    placeholder:
+                        const AssetImage('assets/images/placeholder.jpg'),
+                    image: NetworkImage(comic.thumbnail),
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
+                    imageErrorBuilder: (context, error, stackTrace) =>
                         Image.asset('assets/images/noimage.jpeg'),
                   ),
                 ),

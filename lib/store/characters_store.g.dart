@@ -71,6 +71,22 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
     });
   }
 
+  late final _$loadingMoreAtom =
+      Atom(name: 'CharactersStoreBase.loadingMore', context: context);
+
+  @override
+  bool get loadingMore {
+    _$loadingMoreAtom.reportRead();
+    return super.loadingMore;
+  }
+
+  @override
+  set loadingMore(bool value) {
+    _$loadingMoreAtom.reportWrite(value, super.loadingMore, () {
+      super.loadingMore = value;
+    });
+  }
+
   late final _$hasErrorAtom =
       Atom(name: 'CharactersStoreBase.hasError', context: context);
 
@@ -155,6 +171,7 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
 allCharacters: ${allCharacters},
 foundCharacters: ${foundCharacters},
 loading: ${loading},
+loadingMore: ${loadingMore},
 hasError: ${hasError},
 offset: ${offset},
 totalData: ${totalData},
