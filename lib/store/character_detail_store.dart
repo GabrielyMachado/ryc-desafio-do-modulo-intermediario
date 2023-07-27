@@ -39,7 +39,7 @@ abstract class CharacterDetailStoreBase with Store {
 
   @action
   Future<void> getCharacterComics(characterId) async {
-    final url = BaseUrl.getUrl("/v1/public/characters/$characterId/comic");
+    final url = BaseUrl.getUrl("/v1/public/characters/$characterId/comics");
 
     _setLoading(true);
     _setError(false);
