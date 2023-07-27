@@ -23,56 +23,64 @@ class _CharactersPageState extends State<CharactersPage> {
       _controller.getCharacters();
     }
 
-    return Scaffold(
-      appBar: const CustomAppBar(),
-      body: Observer(
-        builder: (_) {
-          if (_controller.loading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (_controller.hasError) {
-            return RequestError(_controller.getCharacters, 'characters');
-          } else if (_controller.foundCharacters.isNotEmpty) {
-            return Scrollbar(
-              thickness: 3,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    CustomSearchbar(_controller),
-                    CharacterGrid(_controller.foundCharacters),
-                    _controller.hasMoreData
-                        ? TextButton(
-                            onPressed: () {
-                              _controller.showMoreCharacters();
-                            },
-                            child: _controller.loadingMore
-                                ? const CircularProgressIndicator()
-                                : const Text(
-                                    'Mostrar mais',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
+    return Observer(
+      builder: (_) {
+        if (_controller.loading) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return Scaffold(
+            appBar: CustomAppBar(controller: _controller),
+            body: _controller.hasError
+                ? RequestError(_controller.getCharacters, 'characters')
+                : _controller.foundCharacters.isNotEmpty
+                    ? Scrollbar(
+                        thickness: 3,
+                        child: Stack(
+                          children: [
+                            SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  CharacterGrid(
+                                    _controller.foundCharacters,
                                   ),
-                          )
-                        : Container(),
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return Column(
-              children: [
-                CustomSearchbar(_controller),
-                const Expanded(
-                  child: Center(
-                    child: Text('Nenhum personagem encontrado'),
-                  ),
-                ),
-              ],
-            );
-          }
-        },
-      ),
+                                  _controller.hasMoreData
+                                      ? TextButton(
+                                          onPressed: () {
+                                            _controller.showMoreCharacters();
+                                          },
+                                          child: _controller.loadingMore
+                                              ? const CircularProgressIndicator()
+                                              : const Text(
+                                                  'Mostrar mais',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                        )
+                                      : Container(),
+                                ],
+                              ),
+                            ),
+                            _controller.showSearchBar
+                                ? CustomSearchbar(_controller)
+                                : Container(),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          CustomSearchbar(_controller),
+                          const Expanded(
+                            child: Center(
+                              child: Text('Nenhum personagem encontrado'),
+                            ),
+                          ),
+                        ],
+                      ),
+          );
+        }
+      },
     );
   }
 }

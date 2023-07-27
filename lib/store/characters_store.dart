@@ -21,6 +21,9 @@ abstract class CharactersStoreBase with Store {
   ObservableList<Character> foundCharacters = ObservableList<Character>();
 
   @observable
+  bool showSearchBar = false;
+
+  @observable
   bool loading = false;
 
   @observable
@@ -128,6 +131,11 @@ abstract class CharactersStoreBase with Store {
       _setError(true);
     }
     _setLoadingMore(false);
+  }
+
+  @action
+  void toogleSearch() {
+    showSearchBar = !showSearchBar;
   }
 
   void _setLoading(bool value) {

@@ -56,19 +56,6 @@ class RequestError extends StatelessWidget {
                       },
                       child: const Text('Tentar novamente'),
                     ),
-                    origin != 'characters'
-                        ? TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text(
-                              'Voltar',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          )
-                        : Container(),
                   ],
                 ),
               ),

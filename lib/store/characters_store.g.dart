@@ -55,6 +55,22 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
     });
   }
 
+  late final _$showSearchBarAtom =
+      Atom(name: 'CharactersStoreBase.showSearchBar', context: context);
+
+  @override
+  bool get showSearchBar {
+    _$showSearchBarAtom.reportRead();
+    return super.showSearchBar;
+  }
+
+  @override
+  set showSearchBar(bool value) {
+    _$showSearchBarAtom.reportWrite(value, super.showSearchBar, () {
+      super.showSearchBar = value;
+    });
+  }
+
   late final _$loadingAtom =
       Atom(name: 'CharactersStoreBase.loading', context: context);
 
@@ -167,10 +183,22 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
   }
 
   @override
+  void toogleSearch() {
+    final _$actionInfo = _$CharactersStoreBaseActionController.startAction(
+        name: 'CharactersStoreBase.toogleSearch');
+    try {
+      return super.toogleSearch();
+    } finally {
+      _$CharactersStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 allCharacters: ${allCharacters},
 foundCharacters: ${foundCharacters},
+showSearchBar: ${showSearchBar},
 loading: ${loading},
 loadingMore: ${loadingMore},
 hasError: ${hasError},

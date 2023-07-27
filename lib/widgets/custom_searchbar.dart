@@ -8,12 +8,15 @@ class CustomSearchbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SearchBar(
-        surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
-        hintText: 'Pesquisar personagem',
-        onChanged: (value) => _controller.runFilter(value),
+    return Container(
+      color: Colors.black,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SearchBar(
+          surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+          hintText: 'Pesquisar personagem',
+          onChanged: (value) => _controller.runFilter(value),
+        ),
       ),
     );
   }
