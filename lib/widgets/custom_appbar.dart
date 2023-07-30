@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       return SafeArea(
         child: AppBar(
           backgroundColor: Colors.black,
-          title: controller!.showSearchBar
+          title: controller != null && controller!.showSearchBar
               ? CustomSearchbar(controller!)
               : Container(
                   padding: const EdgeInsets.only(bottom: 10, top: 10),
