@@ -6,6 +6,8 @@ import 'package:marvel_characters/widgets/comics_card.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
 import 'package:marvel_characters/widgets/request_error.dart';
 
+import '../widgets/show_more_button.dart';
+
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({super.key});
 
@@ -120,22 +122,15 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                         ),
                                       ),
                                       _controller.hasMoreData
-                                          ? TextButton(
-                                              onPressed: () {
-                                                _controller
-                                                    .showMoreCharacterComics(
-                                                        character.id);
+                                          ? Observer(
+                                              builder: (_) {
+                                                return ShowMoreButton(
+                                                  () => _controller
+                                                      .showMoreCharacterComics(
+                                                          character.id),
+                                                  _controller.loadingMore,
+                                                );
                                               },
-                                              child: Center(
-                                                child: _controller.loadingMore
-                                                    ? const CircularProgressIndicator()
-                                                    : const Text(
-                                                        'Mostrar mais',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                        ),
-                                                      ),
-                                              ),
                                             )
                                           : Container(),
                                     ],

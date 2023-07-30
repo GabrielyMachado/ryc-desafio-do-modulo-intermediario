@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marvel_characters/store/characters_store.dart';
+import 'package:marvel_characters/widgets/show_more_button.dart';
 
 import 'character_grid.dart';
 
@@ -20,18 +22,13 @@ class CharactersList extends StatelessWidget {
               _controller.foundCharacters,
             ),
             _controller.hasMoreData
-                ? TextButton(
-                    onPressed: () {
-                      _controller.showMoreCharacters();
+                ? Observer(
+                    builder: (_) {
+                      return ShowMoreButton(
+                        _controller.showMoreCharacters,
+                        _controller.loadingMore,
+                      );
                     },
-                    child: _controller.loadingMore
-                        ? const CircularProgressIndicator()
-                        : const Text(
-                            'Mostrar mais',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
                   )
                 : Container(),
           ],
