@@ -151,6 +151,23 @@ mixin _$CharactersStore on CharactersStoreBase, Store {
     });
   }
 
+  late final _$searchEnteredKeywordAtom =
+      Atom(name: 'CharactersStoreBase.searchEnteredKeyword', context: context);
+
+  @override
+  String get searchEnteredKeyword {
+    _$searchEnteredKeywordAtom.reportRead();
+    return super.searchEnteredKeyword;
+  }
+
+  @override
+  set searchEnteredKeyword(String value) {
+    _$searchEnteredKeywordAtom.reportWrite(value, super.searchEnteredKeyword,
+        () {
+      super.searchEnteredKeyword = value;
+    });
+  }
+
   late final _$getCharactersAsyncAction =
       AsyncAction('CharactersStoreBase.getCharacters', context: context);
 
@@ -204,6 +221,7 @@ loadingMore: ${loadingMore},
 hasError: ${hasError},
 offset: ${offset},
 totalData: ${totalData},
+searchEnteredKeyword: ${searchEnteredKeyword},
 hasMoreData: ${hasMoreData},
 hasData: ${hasData}
     ''';

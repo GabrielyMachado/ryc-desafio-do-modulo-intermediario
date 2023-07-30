@@ -38,6 +38,9 @@ abstract class CharactersStoreBase with Store {
   @observable
   int totalData = 0;
 
+  @observable
+  String searchEnteredKeyword = '';
+
   @computed
   bool get hasMoreData => totalData > allCharacters.length;
 
@@ -94,6 +97,7 @@ abstract class CharactersStoreBase with Store {
             .toList(),
       );
     }
+    _setSearchEnteredKeyword(enteredKeyword);
     foundCharacters = results;
   }
 
@@ -156,5 +160,9 @@ abstract class CharactersStoreBase with Store {
 
   void _incrementOffset() {
     offset += 100;
+  }
+
+  void _setSearchEnteredKeyword(String value) {
+    searchEnteredKeyword = value;
   }
 }
