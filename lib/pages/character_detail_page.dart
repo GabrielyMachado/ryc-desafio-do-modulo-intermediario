@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:marvel_characters/entities/character.dart';
 import 'package:marvel_characters/store/character_detail_store.dart';
-import 'package:marvel_characters/widgets/comics_card.dart';
+import 'package:marvel_characters/widgets/character_detail_description.dart';
 import 'package:marvel_characters/widgets/custom_appbar.dart';
 import 'package:marvel_characters/widgets/request_error.dart';
-
-import '../widgets/show_more_button.dart';
+import 'package:marvel_characters/widgets/character_detail_comics.dart';
 
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({super.key});
@@ -87,54 +87,11 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                           children: [
                             const SizedBox(height: 10),
                             character.description != ''
-                                ? SizedBox(
-                                    width: double.infinity,
-                                    child: Text(
-                                      character.description,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  )
+                                ? CharacterDetailDescription(character)
                                 : Container(),
                             const SizedBox(height: 10),
                             character.totalAvailableComics > 0
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Presente em ${character.totalAvailableComics} ${character.totalAvailableComics > 1 ? 'quadrinhos' : 'quadrinho'}',
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Column(
-                                        children: List.generate(
-                                          _controller.allCharacterComics.length,
-                                          (index) => ComicCard(
-                                            _controller
-                                                .allCharacterComics[index],
-                                          ),
-                                        ),
-                                      ),
-                                      _controller.hasMoreData
-                                          ? Observer(
-                                              builder: (_) {
-                                                return ShowMoreButton(
-                                                  () => _controller
-                                                      .showMoreCharacterComics(
-                                                          character.id),
-                                                  _controller.loadingMore,
-                                                );
-                                              },
-                                            )
-                                          : Container(),
-                                    ],
-                                  )
+                                ? CharacterDetailComics(character, _controller)
                                 : const Center(
                                     child: Text('Nenhum quadrinho encontrado'),
                                   ),

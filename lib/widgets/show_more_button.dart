@@ -20,6 +20,5 @@ class ShowMoreButton extends StatelessWidget {
               ),
       ),
     );
-    ;
   }
 }
