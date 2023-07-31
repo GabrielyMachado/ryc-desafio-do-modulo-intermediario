@@ -14,31 +14,31 @@ class CharacterDetailComics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Presente em ${character.totalAvailableComics} ${character.totalAvailableComics > 1 ? 'quadrinhos' : 'quadrinho'}',
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return Observer(
+      builder: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Presente em ${character.totalAvailableComics} ${character.totalAvailableComics > 1 ? 'quadrinhos' : 'quadrinho'}',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-        CharacterDetailComicsList(_controller),
-        _controller.hasMoreData
-            ? Observer(
-                builder: (_) {
-                  return ShowMoreButton(
+            CharacterDetailComicsList(_controller),
+            _controller.hasMoreData
+                ? ShowMoreButton(
                     () => _controller.showMoreCharacterComics(character.id),
                     _controller.loadingMore,
-                  );
-                },
-              )
-            : Container(),
-      ],
+                  )
+                : Container(),
+          ],
+        );
+      },
     );
   }
 }
